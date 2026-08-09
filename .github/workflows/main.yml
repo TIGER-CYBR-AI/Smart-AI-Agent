@@ -4,8 +4,10 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
@@ -15,7 +17,7 @@ jobs:
           buildozer_version: stable
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: package
           path: ${{ steps.buildozer.outputs.filename }}
